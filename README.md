@@ -38,21 +38,12 @@ want to avoid downloading it again, you can provide `zipFile`, and so on...
 
 A number of helper functions also exist, a full list follows:
 
-    * `getTidyData()` uses `read.table(f, header = T, check.names = T)` to
-      read the data.frame from disk & return it to caller.
-    * `makeTidyData()` is automatically called by `getTidyData()` if the data
-      is not already on disk.  This function calls `getStdsAndMeansSubset() to
-      retrieve the subset of standard deviations and means, and uses `aggregate()`
-      to calculate the mean of each set of activity + subject + variable.
-    * `getStdsAndMeansSubset()` uses `read.table(f, header = T, check.names = T)`
-      to read our subset of UCI data, containing only the attributes we are
-      concerned with.
-    * `makeStdsAndMeansSubset()` will be called by `getStdsAndMeansSubset` if
-      the subset data is not already available on disk.
-    * `extractFiles()` extracts required files from the zip file provided by
-      UCI, if needed by `makeStdsAndMeansSubset`.
-    * `downloadZip()` will be called by `extractFiles` if it needs to extract
-      one or more files, but the zip is not found in the current directory.
+* `getTidyData()` uses `read.table(f, header = T, check.names = T)` to read the data.frame from disk & return it to caller.
+* `makeTidyData()` is automatically called by `getTidyData()` if the data is not already on disk.  This function calls `getStdsAndMeansSubset() to retrieve the subset of standard deviations and means, and uses `aggregate()` to calculate the mean of each set of activity + subject + variable.
+* `getStdsAndMeansSubset()` uses `read.table(f, header = T, check.names = T)` to read our subset of UCI data, containing only the attributes we are concerned with.
+* `makeStdsAndMeansSubset()` will be called by `getStdsAndMeansSubset` if the subset data is not already available on disk.
+* `extractFiles()` extracts required files from the zip file provided by UCI, if needed by `makeStdsAndMeansSubset`.
+* `downloadZip()` will be called by `extractFiles` if it needs to extract one or more files, but the zip is not found in the current directory.
 
 Data transformations that take place in `makeStdsAndMeansSubset` and
 `makeTidyData` are described in CodeBook.md
@@ -60,18 +51,13 @@ Data transformations that take place in `makeStdsAndMeansSubset` and
 In addition to the above, there are a couple of helper functions which are
 helpful for development:
 
-    * `describeTidyData()` simply calls `getTidyData()` and then calls `dim()`
-      and `str()` on the returned data.frame.
-    * `cleanUp()` removes downloaded, extracted, and or created resources from
-      disk.  Each step of the above procedure may be kept on disk by
-      overriding the default parameters with empty strings:
-      * `cleanUp()`: remove everything from disk
-      * `cleanUp("")`: do not remove the 60mb zip file
-      * `cleanUp("", "")`: do not remove the zip file or the files extracted from it
-      * `cleanUp("", "", "")`: do not remove zip, extracted files, or subset
-    * `memUsage()` out of curiosity, I added some calls to `message()` that
-      prints out `mem_used()` periodically (from the `pryr` package, if it is
-      installed)
+* `describeTidyData()` simply calls `getTidyData()` and then calls `dim()` and `str()` on the returned data.frame.
+* `cleanUp()` removes downloaded, extracted, and or created resources from disk.  Each step of the above procedure may be kept on disk by overriding the default parameters with empty strings:
+..* `cleanUp()`: remove everything from disk
+..* `cleanUp("")`: do not remove the 60mb zip file
+..* `cleanUp("", "")`: do not remove the zip file or the files extracted from it
+..* `cleanUp("", "", "")`: do not remove zip, extracted files, or subset
+* `memUsage()` out of curiosity, I added some calls to `message()` that prints out `mem_used()` periodically (from the `pryr` package, if it is installed)
 
 ## Unit Tests
 
