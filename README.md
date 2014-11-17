@@ -20,8 +20,15 @@ This repo is my submission for the Coursera course "Getting and Cleaning Data"
 
 The code is provided in the form of several functions in the `run_analysis.R` module.
 
+### getTidyData()
+
 There is only one function you need to call to download, build, and read the
-tidied dataset: `d <- getTidyData()`
+tidied dataset: 
+
+```
+source("run_analysis.R")
+d <- getTidyData()
+```
 
 The full signature is:
 
@@ -55,6 +62,8 @@ conflict for you, be careful to specify "exdir":
 The `tidyFile` and `subsetFile` arguments are the local filenames to write our
 two stages of data frames to (in the current working directory).
 
+### full list of functions
+
 A number of helper functions also exist, a full list follows:
 
 * `getTidyData()` uses `read.table(f, header = T, check.names = T)` to read the data.frame from disk & return it to caller.
@@ -66,6 +75,15 @@ A number of helper functions also exist, a full list follows:
 
 Data transformations that take place in `makeStdsAndMeansSubset` and
 `makeTidyData` are described in [CodeBook.md](CodeBook.md)
+
+The same set of function arguments are passed all the way up the stack, as far
+as each variable makes sense, so just as you can pass `zipFile` and `exdir` to
+`getTidyData`, if you want to load the original subset, you can pass the same
+values to `getStdsAndMeansSubset`:
+
+```
+    ss <- getStdsAndMeansSubset(zipFile = "getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", exdir = ".some-other-name")
+```
 
 In addition to the above, there are a couple of helper functions which are
 helpful for development:
