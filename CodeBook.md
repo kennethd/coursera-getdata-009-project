@@ -182,10 +182,16 @@ This results in 180 rows (30 subjects * 6 actions) of 88 variables (the 86
 above, plus "activity" and "subject"), with a named numeric value for each
 representing the mean for that variable for each pair of activity and subject.
 
+
+### Transformation of Variable Names
+
 The names of the 86 variables are modified by reading the tidy dataset from disk
 with `read.table(check.names = T)` which converts any characters that are not
 valid for variable names in R to a dot, so for example, "angle(Z,gravityMean)" 
 becomes "angle.Z.gravityMean."
+
+In addition to converting invalid characters, `check.names` also ensures that
+all converted names are unique.
 
 
 ## Table of Tidy Dataset
