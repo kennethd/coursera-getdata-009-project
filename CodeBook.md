@@ -226,7 +226,7 @@ named numerical data, plus the added "activity" factor, and integer vector
 
 ### Transformation of Variable Names
 
-The names of the 86 numeric variables are modified by reading the tidy dataset
+The names of the 86 numeric variables are modified by reading the subset data
 from disk with `read.table(check.names = T)` which converts any characters
 that are not valid for variable names in R to a dot, so for example,
 "angle(Z,gravityMean)" becomes "angle.Z.gravityMean."
