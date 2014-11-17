@@ -19,10 +19,12 @@ This repo is my submission for the Coursera course "Getting and Cleaning Data"
     You should create one R script called run_analysis.R that does the following. 
     
     1. Merges the training and the test sets to create one data set.
-    2. Extracts only the measurements on the mean and standard deviation for each measurement. 
+    2. Extracts only the measurements on the mean and standard deviation for each
+       measurement. 
     3. Uses descriptive activity names to name the activities in the data set
     4. Appropriately labels the data set with descriptive variable names. 
-    5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+    5. From the data set in step 4, creates a second, independent tidy data set 
+       with the average of each variable for each activity and each subject.
 
 ## Introduction to the Code
 
@@ -34,8 +36,8 @@ There is only one function you need to call to download, build, and read the
 tidied dataset: 
 
 ```
-source("run_analysis.R")
-d <- getTidyData()
+    source("run_analysis.R")
+    d <- getTidyData()
 ```
 
 The full signature is:
@@ -64,7 +66,8 @@ conflict for you, be careful to specify "exdir":
 
 ```
     d <- getTidyData(exdir = ".some-other-name") 
-    cleanUp(zipFile = "getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", exdir = ".some-other-name")
+    cleanUp(zipFile = "getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
+            exdir = ".some-other-name")
 ```
 
 The `tidyFile` and `subsetFile` arguments are the local filenames to write our
@@ -90,7 +93,8 @@ as each variable makes sense, so just as you can pass `zipFile` and `exdir` to
 values to `getStdsAndMeansSubset`:
 
 ```
-    ss <- getStdsAndMeansSubset(zipFile = "getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", exdir = ".some-other-name")
+    ss <- getStdsAndMeansSubset(zipFile = "getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
+                                exdir = ".some-other-name")
 ```
 
 In addition to the above, there are a couple of helper functions which are
