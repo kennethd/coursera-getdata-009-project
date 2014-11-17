@@ -36,6 +36,25 @@ Each of the arguments provides a default, so none are required.  If you
 already have a copy of the original zip file in your working directory and
 want to avoid downloading it again, you can provide `zipFile`, and so on...
 
+Please note that the default name of the local zip file is not the same as the
+remote name of the file, if you have the zip file available in the current working
+directory with it's original name (pretend it is "UCI-HAR-OriginalName.zip"),
+you can avoid downloading it again with:
+
+```
+    d <- getTidyData(zipFile = "UCI-HAR-OriginalName.zip")
+```
+
+By default the 8 files needed to create our subset data frame are extracted to
+a new directory ".d" in the current working directory (and the `cleanUp()`
+helper introduced below will try to remove this directory).  If this causes a
+conflict for you, be careful to specify "exdir":
+
+```
+    d <- getTidyData(exdir = ".some-other-name") 
+    cleanUp(zipFile = "UCI-HAR-OriginalName.zip", exdir = ".some-other-name")
+```
+
 A number of helper functions also exist, a full list follows:
 
 * `getTidyData()` uses `read.table(f, header = T, check.names = T)` to read the data.frame from disk & return it to caller.
