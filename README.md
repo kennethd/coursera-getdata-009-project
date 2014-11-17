@@ -32,7 +32,7 @@ The full signature is:
                             exdir = EXTRACT_DIR)
 ```
 
-Each of the arguments provides a default, and none are required.  If you
+Each of the arguments provides a default, so none are required.  If you
 already have a copy of the original zip file in your working directory and
 want to avoid downloading it again, you can provide `zipFile`, and so on...
 
