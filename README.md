@@ -32,17 +32,14 @@ The full signature is:
                             exdir = EXTRACT_DIR)
 ```
 
-Each of the arguments provides a default, so none are required.  If you
-already have a copy of the original zip file in your working directory and
-want to avoid downloading it again, you can provide `zipFile`, and so on...
+Each of the arguments provides a default, so none are required. 
 
 Please note that the default name of the local zip file is not the same as the
 remote name of the file, if you have the zip file available in the current working
-directory with it's original name (pretend it is "UCI-HAR-OriginalName.zip"),
-you can avoid downloading it again with:
+directory with it's original name you can avoid downloading it again with:
 
 ```
-    d <- getTidyData(zipFile = "UCI-HAR-OriginalName.zip")
+    d <- getTidyData(zipFile = "getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip")
 ```
 
 By default the 8 files needed to create our subset data frame are extracted to
@@ -52,8 +49,11 @@ conflict for you, be careful to specify "exdir":
 
 ```
     d <- getTidyData(exdir = ".some-other-name") 
-    cleanUp(zipFile = "UCI-HAR-OriginalName.zip", exdir = ".some-other-name")
+    cleanUp(zipFile = "getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", exdir = ".some-other-name")
 ```
+
+The `tidyFile` and `subsetFile` arguments are the local filenames to write our
+two stages of data frames to (in the current working directory).
 
 A number of helper functions also exist, a full list follows:
 
