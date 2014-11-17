@@ -107,6 +107,7 @@ the mean and standard deviation for each measurement."
 There are 86 variables in the original data set that match the regexp
 '(mean|std)' case-insensitively:
 
+```
     tBodyAcc-mean()-X               tBodyAcc-mean()-Y               tBodyAcc-mean()-Z
     tBodyAcc-std()-X                tBodyAcc-std()-Y                tBodyAcc-std()-Z
 
@@ -149,17 +150,18 @@ There are 86 variables in the original data set that match the regexp
             angle(tBodyGyroMean,gravityMean)        angle(tBodyGyroJerkMean,gravityMean)
 
     angle(X,gravityMean)            angle(Y,gravityMean)            angle(Z,gravityMean)
+```
 
+It is unclear to me whether the 20 meanFreq, gravityMean, and 
+angle(tBodyAccMean,gravity) variables are to be included.  From 
+the "Feature Selection" excerpt above it appears some of these 
+values at least are calculations rather than measurements, but 
+there is also the argument that all of them are more calculation 
+than simple measurement.
 
-It is unclear to me whether the 20 meanFreq, gravityMean, and angle(tBodyAccMean,gravity)
-variables are to be included.  From the "Feature Selection" excerpt above it
-appears some of these values at least are calculations rather than
-measurements, but there is also the argument that all of them are more
-calculation than simple measurement.
-
-The subsetting implementation is such that the regular expression responsible
-for selecting variables based on their names can easily be changed with no
-further code changes required.
+The subsetting implementation is such that the regular expression 
+responsible for selecting variables based on their names can easily 
+be changed with no further code changes required.
 
 I therefore decided to err on the side of possibly including too many
 variables, and subsetting the full set of 86.
@@ -179,4 +181,105 @@ activity and subject variables that were added in the previous step.
 This results in 180 rows (30 subjects * 6 actions) of 88 variables (the 86
 above, plus "activity" and "subject"), with a named numeric value for each
 representing the mean for that variable for each pair of activity and subject.
+
+The names of the 86 variables are modified by reading the tidy dataset from disk
+with `read.table(check.names = T)` which converts any characters that are not
+valid for variable names in R to a dot, so for example, "angle(Z,gravityMean)" 
+becomes "angle.Z.gravityMean."
+
+
+== Table of Tidy Dataset
+
+The finished tidy dataset contains the following variables:
+
+| Name                                 | Class     |
+| ------------------------------------ | --------- |
+| activity                             | "factor"  |
+| subject                              | "integer" |
+| tBodyAcc.mean...X                    | "numeric" |
+| tBodyAcc.mean...Y                    | "numeric" |
+| tBodyAcc.mean...Z                    | "numeric" |
+| tBodyAcc.std...X                     | "numeric" |
+| tBodyAcc.std...Y                     | "numeric" |
+| tBodyAcc.std...Z                     | "numeric" |
+| tGravityAcc.mean...X                 | "numeric" |
+| tGravityAcc.mean...Y                 | "numeric" |
+| tGravityAcc.mean...Z                 | "numeric" |
+| tGravityAcc.std...X                  | "numeric" |
+| tGravityAcc.std...Y                  | "numeric" |
+| tGravityAcc.std...Z                  | "numeric" |
+| tBodyAccJerk.mean...X                | "numeric" |
+| tBodyAccJerk.mean...Y                | "numeric" |
+| tBodyAccJerk.mean...Z                | "numeric" |
+| tBodyAccJerk.std...X                 | "numeric" |
+| tBodyAccJerk.std...Y                 | "numeric" |
+| tBodyAccJerk.std...Z                 | "numeric" |
+| tBodyGyro.mean...X                   | "numeric" |
+| tBodyGyro.mean...Y                   | "numeric" |
+| tBodyGyro.mean...Z                   | "numeric" |
+| tBodyGyro.std...X                    | "numeric" |
+| tBodyGyro.std...Y                    | "numeric" |
+| tBodyGyro.std...Z                    | "numeric" |
+| tBodyGyroJerk.mean...X               | "numeric" |
+| tBodyGyroJerk.mean...Y               | "numeric" |
+| tBodyGyroJerk.mean...Z               | "numeric" |
+| tBodyGyroJerk.std...X                | "numeric" |
+| tBodyGyroJerk.std...Y                | "numeric" |
+| tBodyGyroJerk.std...Z                | "numeric" |
+| tBodyAccMag.mean..                   | "numeric" |
+| tBodyAccMag.std..                    | "numeric" |
+| tGravityAccMag.mean..                | "numeric" |
+| tGravityAccMag.std..                 | "numeric" |
+| tBodyAccJerkMag.mean..               | "numeric" |
+| tBodyAccJerkMag.std..                | "numeric" |
+| tBodyGyroMag.mean..                  | "numeric" |
+| tBodyGyroMag.std..                   | "numeric" |
+| tBodyGyroJerkMag.mean..              | "numeric" |
+| tBodyGyroJerkMag.std..               | "numeric" |
+| fBodyAcc.mean...X                    | "numeric" |
+| fBodyAcc.mean...Y                    | "numeric" |
+| fBodyAcc.mean...Z                    | "numeric" |
+| fBodyAcc.std...X                     | "numeric" |
+| fBodyAcc.std...Y                     | "numeric" |
+| fBodyAcc.std...Z                     | "numeric" |
+| fBodyAcc.meanFreq...X                | "numeric" |
+| fBodyAcc.meanFreq...Y                | "numeric" |
+| fBodyAcc.meanFreq...Z                | "numeric" |
+| fBodyAccJerk.mean...X                | "numeric" |
+| fBodyAccJerk.mean...Y                | "numeric" |
+| fBodyAccJerk.mean...Z                | "numeric" |
+| fBodyAccJerk.std...X                 | "numeric" |
+| fBodyAccJerk.std...Y                 | "numeric" |
+| fBodyAccJerk.std...Z                 | "numeric" |
+| fBodyAccJerk.meanFreq...X            | "numeric" |
+| fBodyAccJerk.meanFreq...Y            | "numeric" |
+| fBodyAccJerk.meanFreq...Z            | "numeric" |
+| fBodyGyro.mean...X                   | "numeric" |
+| fBodyGyro.mean...Y                   | "numeric" |
+| fBodyGyro.mean...Z                   | "numeric" |
+| fBodyGyro.std...X                    | "numeric" |
+| fBodyGyro.std...Y                    | "numeric" |
+| fBodyGyro.std...Z                    | "numeric" |
+| fBodyGyro.meanFreq...X               | "numeric" |
+| fBodyGyro.meanFreq...Y               | "numeric" |
+| fBodyGyro.meanFreq...Z               | "numeric" |
+| fBodyAccMag.mean..                   | "numeric" |
+| fBodyAccMag.std..                    | "numeric" |
+| fBodyAccMag.meanFreq..               | "numeric" |
+| fBodyBodyAccJerkMag.mean..           | "numeric" |
+| fBodyBodyAccJerkMag.std..            | "numeric" |
+| fBodyBodyAccJerkMag.meanFreq..       | "numeric" |
+| fBodyBodyGyroMag.mean..              | "numeric" |
+| fBodyBodyGyroMag.std..               | "numeric" |
+| fBodyBodyGyroMag.meanFreq..          | "numeric" |
+| fBodyBodyGyroJerkMag.mean..          | "numeric" |
+| fBodyBodyGyroJerkMag.std..           | "numeric" |
+| fBodyBodyGyroJerkMag.meanFreq..      | "numeric" |
+| angle.tBodyAccMean.gravity.          | "numeric" |
+| angle.tBodyAccJerkMean..gravityMean. | "numeric" |
+| angle.tBodyGyroMean.gravityMean.     | "numeric" |
+| angle.tBodyGyroJerkMean.gravityMean. | "numeric" |
+| angle.X.gravityMean.                 | "numeric" |
+| angle.Y.gravityMean.                 | "numeric" |
+| angle.Z.gravityMean.                 | "numeric" |
 
