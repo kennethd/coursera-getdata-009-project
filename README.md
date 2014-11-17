@@ -39,7 +39,7 @@ want to avoid downloading it again, you can provide `zipFile`, and so on...
 A number of helper functions also exist, a full list follows:
 
 * `getTidyData()` uses `read.table(f, header = T, check.names = T)` to read the data.frame from disk & return it to caller.
-* `makeTidyData()` is automatically called by `getTidyData()` if the data is not already on disk.  This function calls `getStdsAndMeansSubset() to retrieve the subset of standard deviations and means, and uses `aggregate()` to calculate the mean of each set of activity + subject + variable.
+* `makeTidyData()` is automatically called by `getTidyData()` if the data is not already on disk.  This function calls `getStdsAndMeansSubset()` to retrieve the subset of standard deviations and means, and uses `aggregate()` to calculate the mean of each set of activity + subject + variable.
 * `getStdsAndMeansSubset()` uses `read.table(f, header = T, check.names = T)` to read our subset of UCI data, containing only the attributes we are concerned with.
 * `makeStdsAndMeansSubset()` will be called by `getStdsAndMeansSubset` if the subset data is not already available on disk.
 * `extractFiles()` extracts required files from the zip file provided by UCI, if needed by `makeStdsAndMeansSubset`.
