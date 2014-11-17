@@ -53,10 +53,10 @@ helpful for development:
 
 * `describeTidyData()` simply calls `getTidyData()` and then calls `dim()` and `str()` on the returned data.frame.
 * `cleanUp()` removes downloaded, extracted, and or created resources from disk.  Each step of the above procedure may be kept on disk by overriding the default parameters with empty strings:
-..* `cleanUp()`: remove everything from disk
-..* `cleanUp("")`: do not remove the 60mb zip file
-..* `cleanUp("", "")`: do not remove the zip file or the files extracted from it
-..* `cleanUp("", "", "")`: do not remove zip, extracted files, or subset
+    * `cleanUp()`: remove everything from disk
+    * `cleanUp("")`: do not remove the 60mb zip file
+    * `cleanUp("", "")`: do not remove the zip file or the files extracted from it
+    * `cleanUp("", "", "")`: do not remove zip, extracted files, or subset
 * `memUsage()` out of curiosity, I added some calls to `message()` that prints out `mem_used()` periodically (from the `pryr` package, if it is installed)
 
 ## Unit Tests
