@@ -1,0 +1,10 @@
+*.sw[op]
+/.Rhistory
+/UCI HAR Dataset
+/getdata-projectfiles-FUCI-HAR-Dataset.zip
+/.d
+/UCI-HAR.subset.txt
+/.~lock.UCI-HAR.subset.txt#
+/UCI-HAR.tidy.txt
+/.~lock.UCI-HAR.tidy.txt#
+/UCI-HAR.zip
