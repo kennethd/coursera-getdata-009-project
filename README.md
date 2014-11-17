@@ -46,7 +46,7 @@ A number of helper functions also exist, a full list follows:
 * `downloadZip()` will be called by `extractFiles` if it needs to extract one or more files, but the zip is not found in the current directory.
 
 Data transformations that take place in `makeStdsAndMeansSubset` and
-`makeTidyData` are described in CodeBook.md
+`makeTidyData` are described in [CodeBook.md](CodeBook.md)
 
 In addition to the above, there are a couple of helper functions which are
 helpful for development:
