@@ -1,9 +1,9 @@
 
-= Coursera Project for Getting and Cleaning Data
+# Coursera Project for Getting and Cleaning Data
 
 This repo is my submission for the Coursera course "Getting and Cleaning Data"
 
-== Instructions
+## Instructions
 
     The purpose of this project is to demonstrate your ability to collect, work
     with, and clean a data set. The goal is to prepare tidy data that can be used
@@ -16,7 +16,7 @@ This repo is my submission for the Coursera course "Getting and Cleaning Data"
     your scripts. This repo explains how all of the scripts work and how they are
     connected.
 
-== Introduction to the Code
+## Introduction to the Code
 
 The code is provided in the form of several functions in the `run_analysis.R` module.
 
@@ -73,7 +73,7 @@ helpful for development:
       prints out `mem_used()` periodically (from the `pryr` package, if it is
       installed)
 
-== Unit Tests
+## Unit Tests
 
 I created some very basic test cases by loading the resulting data.frame files
 into Libre Office Calc, and counting rows from the subset data for a subject +

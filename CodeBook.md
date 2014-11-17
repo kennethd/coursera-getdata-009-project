@@ -1,7 +1,7 @@
 
-= CodeBook for Getting and Cleaning Data Project
+# CodeBook for Getting and Cleaning Data Project
 
-== Upstream Data
+## Upstream Data
 
 The original dataset was introduced to us via the Project instruction page:
 
@@ -18,7 +18,7 @@ The original dataset was introduced to us via the Project instruction page:
 
     https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
-=== Upstream Credits
+### Upstream Credits
 
 The README.txt file in the upstream data credits it to:
 
@@ -34,7 +34,7 @@ The README.txt file in the upstream data credits it to:
     www.smartlab.ws
     ==================================================================
 
-=== Overview
+### Overview
 
 The README.txt in the upstream data provides this overview:
 
@@ -67,7 +67,7 @@ The README.txt in the upstream data provides this overview:
     - Its activity label.
     - An identifier of the subject who carried out the experiment.
 
-=== Original Dataset Details
+### Original Dataset Details
 
 The following is from the "Feature Selection" section of the
 "features_info.txt" file in the original dataset.
@@ -92,14 +92,14 @@ The following is from the "Feature Selection" section of the
     fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain
     signals).
 
-== Transforming the Original Dataset
+## Transforming the Original Dataset
 
 In the original dataset there are 561 variables tracked for each obversation.
 
 In addition, each observation is associated (via secondary files) with a
 subject (of which there are 30) and an activity (there are 6).
 
-=== Subsetting the data
+### Subsetting the data
 
 The instruction for subsetting the data is "Extracts only the measurements on
 the mean and standard deviation for each measurement."
@@ -172,7 +172,7 @@ c("SITTING", "STANDING", etc...)), and an integer column identifying the
 subject (called "subject").
 
 
-=== Aggregate Means in the Tidy Dataset
+### Aggregate Means in the Tidy Dataset
 
 The final transformation of the original dataset into our tidy dataset
 calculates the mean of all observations, aggregate for each unique pair of the
@@ -188,7 +188,7 @@ valid for variable names in R to a dot, so for example, "angle(Z,gravityMean)"
 becomes "angle.Z.gravityMean."
 
 
-== Table of Tidy Dataset
+## Table of Tidy Dataset
 
 The finished tidy dataset contains the following variables:
 
