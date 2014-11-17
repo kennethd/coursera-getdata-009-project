@@ -203,19 +203,21 @@ appears some of these values at least are calculations rather than
 measurements, but there is also the argument that all of them are more
 calculation than simple measurement.
 
+I decided to err on the side of possibly including too many variables, and
+subsetting the full set of 86.
+
 My subsetting implementation is such that the regular expression responsible
 for selecting variables based on their names can easily be changed with no
 further code changes required (there is no assumption about the number of
 columns returned, or position of any particular column, except that activity &
-subject are last).
+subject are last), so refining the regex later after seeing the data and
+realizing there are too many columns seems safer than possibly omitting wanted
+columns from the start.
 
-I therefore decided to err on the side of possibly including too many
-variables, and subsetting the full set of 86.
-
-To do so, I created a logical vector of feature names sapply()ed to a function
-that used grepl() to test each name against the simple regex '(mean|std)'
-(case-insensitively), and applied this column mask to the single data frame
-prepared above.
+To accomplish this subset, I created a logical vector of feature names
+sapply()ed to a function that used grepl() to test each name against the
+simple regex '(mean|std)' (with ignore.case=T), and applied this column mask
+to the single data frame prepared above.
 
 The data returned by `getStdsAndMeansDataset()` includes these 86 columns of
 numerical data, plus the added "activity" factor, and integer vector
