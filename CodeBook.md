@@ -152,16 +152,16 @@ There are 86 variables in the original data set that match the regexp
     angle(X,gravityMean)            angle(Y,gravityMean)            angle(Z,gravityMean)
 ```
 
-It is unclear to me whether the 20 meanFreq, gravityMean, and 
-angle(tBodyAccMean,gravity) variables are to be included.  From 
-the "Feature Selection" excerpt above it appears some of these 
-values at least are calculations rather than measurements, but 
-there is also the argument that all of them are more calculation 
-than simple measurement.
+It is unclear to me whether the 20 meanFreq, gravityMean, and angle(...)
+variables are to be included.  From the "Feature Selection" excerpt above it
+appears some of these values at least are calculations rather than
+measurements, but there is also the argument that all of them are more
+calculation than simple measurement.
 
-The subsetting implementation is such that the regular expression 
-responsible for selecting variables based on their names can easily 
-be changed with no further code changes required.
+The subsetting implementation is such that the regular expression responsible
+for selecting variables based on their names can easily be changed with no
+further code changes required (there is no assumption about the number of
+columns returned, or position of any particular column).
 
 I therefore decided to err on the side of possibly including too many
 variables, and subsetting the full set of 86.
