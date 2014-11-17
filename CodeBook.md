@@ -215,9 +215,8 @@ realizing there are too many columns seems safer than possibly omitting wanted
 columns from the start.
 
 To accomplish this subset, I created a logical vector of feature names
-sapply()ed to a function that used grepl() to test each name against the
-simple regex '(mean|std)' (with ignore.case=T), and applied this column mask
-to the single data frame prepared above.
+by testing each name against the simple regex '(mean|std)' (with ignore.case
+flag), and applied this column mask to the single data frame prepared above.
 
 The data returned by `getStdsAndMeansDataset()` includes these 86 columns of
 named numerical data, plus the added "activity" factor, and integer vector
