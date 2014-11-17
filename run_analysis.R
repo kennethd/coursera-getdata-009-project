@@ -104,10 +104,7 @@ makeStdsAndMeansSubset <- function(subsetFile = SUBSET_DATA_FILE,
     memUsage("mem used by makeStdsAndMeansSubset before applying colMask")
     obs <- obs[, colMask]
     write.table(obs, file = subsetFile, row.names = F)
-
     message(paste("created subset txt file", subsetFile))
-    #dim(obs[, colMask])
-    #str(obs[, colMask])
     memUsage("mem used by makeStdsAndMeansSubset after applying colMask")
 }
 
