@@ -204,7 +204,7 @@ measurements, but there is also the argument that all of them are more
 calculation than simple measurement.
 
 I decided to err on the side of possibly including too many variables, and
-subsetting the full set of 86.
+chose to subset the full set of 86.
 
 My subsetting implementation is such that the regular expression responsible
 for selecting variables based on their names can easily be changed with no
@@ -220,9 +220,8 @@ simple regex '(mean|std)' (with ignore.case=T), and applied this column mask
 to the single data frame prepared above.
 
 The data returned by `getStdsAndMeansDataset()` includes these 86 columns of
-numerical data, plus the added "activity" factor, and integer vector
-"subject".  In addition, the numeric observations have been named with values
-read from features.txt.
+named numerical data, plus the added "activity" factor, and integer vector
+"subject".
 
 
 ### Transformation of Variable Names
