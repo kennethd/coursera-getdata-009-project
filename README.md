@@ -26,9 +26,11 @@ This repo is my submission for the Coursera course "Getting and Cleaning Data"
     5. From the data set in step 4, creates a second, independent tidy data set 
        with the average of each variable for each activity and each subject.
 
+
 ## Introduction to the Code
 
 The code is provided in the form of several functions in the `run_analysis.R` module.
+
 
 ### getTidyData()
 
@@ -66,26 +68,28 @@ conflict for you, be careful to specify "exdir":
 
 ```
     d <- getTidyData(exdir = ".some-other-name") 
+    cleanUp(exdir = ".some-other-name")
+```
+
+Or, if you specified both `zipFile` and `exdir`:
+
+```
     cleanUp(zipFile = "getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
             exdir = ".some-other-name")
 ```
 
-The `tidyFile` and `subsetFile` arguments are the local filenames to write our
-two stages of data frames to (in the current working directory).
+The `subsetFile` and `tidyFile` arguments are the local filenames to write our
+two stages of data frames to (in the current working directory).  The defaults
+are "UCI-HAR.subset.txt" and "UCI-HAR.tidy.txt", respectively.
 
-### full list of functions
+`getTidyData()` uses `read.table(f, header = T, check.names = T)` to read the
+data.frame from disk & return it to caller.
 
-A number of helper functions also exist, a full list follows:
 
-* `getTidyData()` uses `read.table(f, header = T, check.names = T)` to read the data.frame from disk & return it to caller.
-* `makeTidyData()` is automatically called by `getTidyData()` if the data is not already on disk.  This function calls `getStdsAndMeansSubset()` to retrieve the subset of standard deviations and means, and uses `aggregate()` to calculate the mean of each set of activity + subject + variable.
-* `getStdsAndMeansSubset()` uses `read.table(f, header = T, check.names = T)` to read our subset of UCI data, containing only the attributes we are concerned with.
-* `makeStdsAndMeansSubset()` will be called by `getStdsAndMeansSubset` if the subset data is not already available on disk.
-* `extractFiles()` extracts required files from the zip file provided by UCI, if needed by `makeStdsAndMeansSubset`.
-* `downloadZip()` will be called by `extractFiles` if it needs to extract one or more files, but the zip is not found in the current directory.
+### Other Functions
 
-Data transformations that take place in `makeStdsAndMeansSubset` and
-`makeTidyData` are described in [CodeBook.md](CodeBook.md)
+If you want more granular control, you can call directly any of the helper
+functions `getTidyData` relies on.
 
 The same set of function arguments are passed all the way up the stack, as far
 as each variable makes sense, so just as you can pass `zipFile` and `exdir` to
@@ -97,16 +101,86 @@ values to `getStdsAndMeansSubset`:
                                 exdir = ".some-other-name")
 ```
 
+Data transformations that take place in `makeStdsAndMeansSubset` and
+`makeTidyData` are described in [CodeBook.md](CodeBook.md).  The effect of
+`check.names=T` is discussed in the [Transformation of Variable
+Names](CodeBook.md#transformation-of-variable-names) section.
+
+
+#### makeTidyData()
+
+`makeTidyData()` is automatically called by `getTidyData()` if the data is 
+not already on disk.  
+
+This function calls `getStdsAndMeansSubset()` to retrieve the subset of
+standard deviations and means, then uses `aggregate()` to calculate the mean of
+each set of activity + subject + variable, and writes the result to disk.
+
+This function does not return anything, you must retrieve the data from disk
+using `getTidyData()`.
+
+
+#### getStdsAndMeansSubset()
+
+`getStdsAndMeansSubset()` uses `read.table(f, header = T, check.names = T)`
+to read our subset of UCI data from disk, calling `makeStdsAndMeansSubset`
+if necessary,
+
+
+#### makeStdsAndMeansSubset()
+
+`makeStdsAndMeansSubset()` loads the upstream data from files extracted from
+the zip archive, combines it into a single data frame with named columns,
+and subsets the columns we are concerned with, then writes it to disk.
+
+This function does not return anything, you must retrieve the data from disk
+using `getTidyData()`.
+
+
+#### extractFiles()
+
+`extractFiles()` extracts requested files from the zip file provided by UCI.
+
+This is called by `makeStdsAndMeansSubset` if needed.
+
+
+#### downloadZip()
+
+`downloadZip()` will be called by `extractFiles` if it needs to extract one 
+or more files, but the zip is not found in the current directory.
+
+
+### Helper Functions
+
 In addition to the above, there are a couple of helper functions which are
 helpful for development:
 
-* `describeTidyData()` simply calls `getTidyData()` and then calls `dim()` and `str()` on the returned data.frame.
-* `cleanUp()` removes downloaded, extracted, and or created resources from disk.  Each step of the above procedure may be kept on disk by overriding the default parameters with empty strings:
-    * `cleanUp()`: remove everything from disk
-    * `cleanUp("")`: do not remove the 60mb zip file
-    * `cleanUp("", "")`: do not remove the zip file or the files extracted from it
-    * `cleanUp("", "", "")`: do not remove zip, extracted files, or subset
-* `memUsage()` out of curiosity, I added some calls to `message()` that prints out `mem_used()` periodically (from the `pryr` package, if it is installed)
+ 
+#### cleanUp
+
+
+`cleanUp()` removes downloaded, extracted, and or created resources from disk.
+Each step of the above procedure may be kept on disk by overriding the default
+parameters with empty strings:
+
+* `cleanUp()`: remove everything from disk
+* `cleanUp("")`: do not remove the 60mb zip file
+* `cleanUp("", "")`: do not remove the zip file or the files extracted from it
+* `cleanUp("", "", "")`: do not remove zip, extracted files, or subset
+
+
+#### memUsage()
+
+Out of curiosity, I added some calls to `message()` that prints out
+`mem_used()` periodically (from the `pryr` package, if it is installed), just
+to see how garbage collection was working.
+
+
+#### describeTidyData()
+
+`describeTidyData()` simply calls `getTidyData()` and then calls `dim()` and `str()` 
+on the returned data.frame.
+
 
 ## Unit Tests
 
@@ -115,7 +189,9 @@ into Libre Office Calc, and counting rows from the subset data for a subject +
 activity, then calculating the mean to test the tidy dataset.
 
 This is completely extraneous to the stated assignment, I just happen to feel
-better when I have unit tests.
+better when I have unit tests, and as I was working I began to wonder how to
+go about testing data tidying operations.  My simple tests provide nothing
+more than regression assurance, not actual validation of the data integrity.
 
 To run the unit tests from within RStudio, your working directory must be the
 top-level of this project, then source the `run_tests.R` script.  For example:
