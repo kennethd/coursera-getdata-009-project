@@ -27,15 +27,17 @@ This repo is my submission for the Coursera course "Getting and Cleaning Data"
        with the average of each variable for each activity and each subject.
 
 
-## Introduction to the Code
+## Introduction 
 
-The code is provided in the form of several functions in the `run_analysis.R` module.
+The `run_analysis.R` module provides several functions.  There is only one you
+need to call to download, build, and read the tidied dataset: `getTidyData()`.
 
 
 ### getTidyData()
 
-There is only one function you need to call to download, build, and read the
-tidied dataset: 
+Returns the tidied dataset, downloading and extracting the original data if
+necessary, subsetting it, caching and reading the subset, tidying it, caching
+that too, and returning the result to you:
 
 ```
     source("run_analysis.R")
@@ -71,7 +73,7 @@ conflict for you, be careful to specify "exdir":
     cleanUp(exdir = ".some-other-name")
 ```
 
-Or, if you specified both `zipFile` and `exdir`:
+Or, if you specified both `zipFile` and `exdir` to `getTidyData()`:
 
 ```
     cleanUp(zipFile = "getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
@@ -86,7 +88,7 @@ are "UCI-HAR.subset.txt" and "UCI-HAR.tidy.txt", respectively.
 data.frame from disk & return it to caller.
 
 
-### Other Functions
+### Helper Functions
 
 If you want more granular control, you can call directly any of the helper
 functions `getTidyData` relies on.
@@ -97,8 +99,8 @@ as each variable makes sense, so just as you can pass `zipFile` and `exdir` to
 values to `getStdsAndMeansSubset`:
 
 ```
-    ss <- getStdsAndMeansSubset(zipFile = "getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
-                                exdir = ".some-other-name")
+ss <- getStdsAndMeansSubset(zipFile="getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
+                            exdir=".some-other-name")
 ```
 
 Data transformations that take place in `makeStdsAndMeansSubset` and
@@ -150,7 +152,7 @@ This is called by `makeStdsAndMeansSubset` if needed.
 or more files, but the zip is not found in the current directory.
 
 
-### Helper Functions
+### Other Functions
 
 In addition to the above, there are a couple of helper functions which are
 helpful for development:
