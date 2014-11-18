@@ -85,7 +85,8 @@ two stages of data frames to (in the current working directory).  The defaults
 are "UCI-HAR.subset.txt" and "UCI-HAR.tidy.txt", respectively.
 
 `getTidyData()` uses `read.table(f, header = T, check.names = T)` to read the
-data.frame from disk & return it to caller.
+data.frame from disk & return it to caller.  Calls `makeTidyData()` if data is
+not already on disk.
 
 
 ### Helper Functions
@@ -95,8 +96,8 @@ functions `getTidyData` relies on.
 
 The same set of function arguments are passed all the way up the stack, as far
 as each variable makes sense, so just as you can pass `zipFile` and `exdir` to
-`getTidyData`, if you want to load the original subset, you can pass the same
-values to `getStdsAndMeansSubset`:
+`getTidyData`, if you want to load the intermediate subset from step 4 of the
+instructions, you can pass the same values to `getStdsAndMeansSubset`:
 
 ```
 ss <- getStdsAndMeansSubset(zipFile="getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
@@ -112,7 +113,7 @@ Names](CodeBook.md#transformation-of-variable-names) section.
 #### makeTidyData()
 
 `makeTidyData()` is automatically called by `getTidyData()` if the data is 
-not already on disk.  
+not already on disk.  It accepts the same set of arguments as `getTidyData()`.
 
 This function calls `getStdsAndMeansSubset()` to retrieve the subset of
 standard deviations and means, then uses `aggregate()` to calculate the mean of
@@ -124,12 +125,18 @@ using `getTidyData()`.
 
 #### getStdsAndMeansSubset()
 
+Called by `makeTidyData()` to obtain our first subset of upstream data.
+Accepts `subsetFile`, `zipFile`, and `exdir` arguments.
+
 `getStdsAndMeansSubset()` uses `read.table(f, header = T, check.names = T)`
 to read our subset of UCI data from disk, calling `makeStdsAndMeansSubset`
 if necessary,
 
 
 #### makeStdsAndMeansSubset()
+
+Automatically called by `getStdsAndMeansSubset()` if subset data is not
+already on disk.  Accepts `subsetFile`, `zipFile`, and `exdir` arguments.
 
 `makeStdsAndMeansSubset()` loads the upstream data from files extracted from
 the zip archive, combines it into a single data frame with named columns,
@@ -145,11 +152,16 @@ using `getTidyData()`.
 
 This is called by `makeStdsAndMeansSubset` if needed.
 
+Accepts list of filenames to extract from the archive, `zipFile`, and `exdir`.
+
 
 #### downloadZip()
 
 `downloadZip()` will be called by `extractFiles` if it needs to extract one 
 or more files, but the zip is not found in the current directory.
+
+Accepts `zipUrl`, with default set to the only proper option, and `saveAs`,
+which corresponds to the `zipFile` argument from above functions. 
 
 
 ### Other Functions
