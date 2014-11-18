@@ -92,20 +92,20 @@ not already on disk.
 ### Helper Functions
 
 If you want more granular control, you can call directly any of the helper
-functions `getTidyData` relies on.
+functions `getTidyData()` relies on.
 
 The same set of function arguments are passed all the way up the stack, as far
 as each variable makes sense, so just as you can pass `zipFile` and `exdir` to
-`getTidyData`, if you want to load the intermediate subset from step 4 of the
-instructions, you can pass the same values to `getStdsAndMeansSubset`:
+`getTidyData()`, if you want to load the intermediate subset from step 4 of the
+instructions, you can pass the same values to `getStdsAndMeansSubset()`:
 
 ```
 ss <- getStdsAndMeansSubset(zipFile="getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
                             exdir=".some-other-name")
 ```
 
-Data transformations that take place in `makeStdsAndMeansSubset` and
-`makeTidyData` are described in [CodeBook.md](CodeBook.md).  The effect of
+Data transformations that take place in `makeStdsAndMeansSubset()` and
+`makeTidyData()` are described in [CodeBook.md](CodeBook.md).  The effect of
 `check.names=T` is discussed in the [Transformation of Variable
 Names](CodeBook.md#transformation-of-variable-names) section.
 
@@ -129,7 +129,7 @@ Called by `makeTidyData()` to obtain our first subset of upstream data.
 Accepts `subsetFile`, `zipFile`, and `exdir` arguments.
 
 `getStdsAndMeansSubset()` uses `read.table(f, header = T, check.names = T)`
-to read our subset of UCI data from disk, calling `makeStdsAndMeansSubset`
+to read our subset of UCI data from disk, calling `makeStdsAndMeansSubset()`
 if necessary,
 
 
@@ -143,21 +143,21 @@ the zip archive, combines it into a single data frame with named columns,
 and subsets the columns we are concerned with, then writes it to disk.
 
 This function does not return anything, you must retrieve the data from disk
-using `getTidyData()`.
+using `getStdsAndMeansSubset()`.
 
 
 #### extractFiles()
 
 `extractFiles()` extracts requested files from the zip file provided by UCI.
 
-This is called by `makeStdsAndMeansSubset` if needed.
+This is called by `makeStdsAndMeansSubset()` if needed.
 
 Accepts list of filenames to extract from the archive, `zipFile`, and `exdir`.
 
 
 #### downloadZip()
 
-`downloadZip()` will be called by `extractFiles` if it needs to extract one 
+`downloadZip()` will be called by `extractFiles()` if it needs to extract one 
 or more files, but the zip is not found in the current directory.
 
 Accepts `zipUrl`, with default set to the only proper option, and `saveAs`,
@@ -166,7 +166,7 @@ which corresponds to the `zipFile` argument from above functions.
 
 ### Other Functions
 
-In addition to the above, there are a couple of helper functions which are
+In addition to the above, there are a couple of functions which are
 helpful for development:
 
  
