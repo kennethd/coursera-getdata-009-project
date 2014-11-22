@@ -155,6 +155,12 @@ This is called by `makeStdsAndMeansSubset()` if needed.
 Accepts list of filenames to extract from the archive, `zipFile`, and `exdir`.
 
 
+#### readFile()
+
+Called by `makeStdsAndMeansSubset()` to read each of the files extracted from
+the zip archive.  Arguments are `baseName` and `exdir`.
+
+
 #### downloadZip()
 
 `downloadZip()` will be called by `extractFiles()` if it needs to extract one 

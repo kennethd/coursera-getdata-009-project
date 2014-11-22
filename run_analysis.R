@@ -36,6 +36,16 @@ extractFiles <- function(fileNames, zipFile = LOCAL_ZIP_FILE_NAME,
     }
 }
 
+
+# read file baseName from exdir & return data frame
+readFile <- function(baseName, exdir = EXTRACT_DIR) {
+    filePath = file.path(exdir, baseName)
+    df <- read.table(filePath, sep = "", header = F, stringsAsFactors = F)
+    message(paste("read", length(df[,1]), "obs from", baseName))
+    df
+}
+
+
 # parse data from zipfile & subset means and stds, with column names and activity
 # names, and write new data.frame to subsetFile.  Does not return subset data,
 # for consistency it is better to always get it from getStdsAndMeansSubset(),
@@ -58,31 +68,14 @@ makeStdsAndMeansSubset <- function(subsetFile = SUBSET_DATA_FILE,
     )
     extractFiles(reqFiles, zipFile = zipFile, exdir = exdir)
 
-    activityLabelsFile = file.path(exdir, "activity_labels.txt")
-    featuresFile = file.path(exdir, "features.txt")
-    testDataFile = file.path(exdir, "X_test.txt")
-    testLabelsFile = file.path(exdir, "y_test.txt")
-    testSubjectsFile = file.path(exdir, "subject_test.txt")
-    trainDataFile = file.path(exdir, "X_train.txt")
-    trainLabelsFile = file.path(exdir, "y_train.txt")
-    trainSubjectsFile = file.path(exdir, "subject_train.txt")
-
-    activity_labels <- read.table(activityLabelsFile, sep = "", header = F, stringsAsFactors = F)
-    message(paste("read", length(activity_labels[,2]), "activity labels"))
-    features <- read.table(featuresFile, sep = "", header = F, stringsAsFactors = F)
-    message(paste("read", length(features[,1]), "features"))
-    test_data <- read.table(testDataFile, sep = "", header = F, stringsAsFactors = F)
-    message(paste("read", length(test_data[,1]), "test data"))
-    train_data <- read.table(trainDataFile, sep = "", header = F, stringsAsFactors = F)
-    message(paste("read", length(train_data[,1]), "train data"))
-    test_labels <- read.table(testLabelsFile, sep = "", header = F, stringsAsFactors = F)
-    message(paste("read", length(test_labels[,1]), "test labels"))
-    train_labels <- read.table(trainLabelsFile, sep = "", header = F, stringsAsFactors = F)
-    message(paste("read", length(train_labels[,1]), "train labels"))
-    test_subjects <- read.table(testSubjectsFile, sep = "", header = F, stringsAsFactors = F)
-    message(paste("read", length(test_subjects[,1]), "test subjects"))
-    train_subjects <- read.table(trainSubjectsFile, sep = "", header = F, stringsAsFactors = F)
-    message(paste("read", length(train_subjects[,1]), "train subjects"))
+    features <- readFile("features.txt")
+    test_data <- readFile("X_test.txt")
+    train_data <- readFile("X_train.txt")
+    test_labels <- readFile("y_test.txt")
+    train_labels <- readFile("y_train.txt")
+    test_subjects <- readFile("subject_test.txt")
+    train_subjects <- readFile("subject_train.txt")
+    activity_labels <- readFile("activity_labels.txt")
 
     # > dim(test_data)
     # [1] 2947  561
@@ -101,11 +94,11 @@ makeStdsAndMeansSubset <- function(subsetFile = SUBSET_DATA_FILE,
     # "Extracts only the measurements on the mean and standard deviation for each measurement."
     # create logical vector by applying regex to feature names
     colMask <- sapply(features[,2], function(s) { grepl('(mean|std)', s, ignore.case = T) })
-    memUsage("mem used by makeStdsAndMeansSubset before applying colMask")
+    memUsage("mem used @ makeStdsAndMeansSubset before applying colMask")
     obs <- obs[, colMask]
+    memUsage("mem used @ makeStdsAndMeansSubset after applying colMask")
     write.table(obs, file = subsetFile, row.names = F)
     message(paste("created subset txt file", subsetFile))
-    memUsage("mem used by makeStdsAndMeansSubset after applying colMask")
 }
 
 # returns subset of UCI's HAR data, containing only std deviations & means of 
